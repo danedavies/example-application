@@ -14,14 +14,14 @@ jobs:
 
       - name: Set TAG_NAME
         run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
-      
-      - name: Docker login
+
+      - name: Login to DockerHub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.REGISTRY_USER }}
           password: ${{ secrets.REGISTRY_TOKEN }}
-  
-      - name: Build and push
+
+      - name: Build and Push
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -39,7 +39,7 @@ jobs:
         uses: benc-uk/workflow-dispatch@v1
         with:
           workflow: update-deployment.yaml
-          repo: danedavies/example-environment
+          repo: YOUR_USERNAME/example-environment
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           ref: main
           inputs: |
